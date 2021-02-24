@@ -1,0 +1,40 @@
+@font-face {
+  font-family: Rockwell;
+  src: url(/_/fonts/rock.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Rockwell;
+  src: url(/_/fonts/rockb.ttf);
+  font-weight: bold;
+}
+
+:root {
+  --bg-color: #EFEBE4;
+  --a-color: #000;
+  --a-hover-color: #1768B0;
+  --bg-hover-color: #E6D9C3;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Be Vietnam", sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--a-color);
+
+
+  &:hover {
+    color: var(--a-hover-color);
+  }
+}
+
