@@ -44,7 +44,7 @@
 
 <style lang="scss">
   .panel {
-    flex: 3 3 0;
+    flex: 6 6 0;
     border-radius: 4px 0 0 0 ;
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
     background: #fff;

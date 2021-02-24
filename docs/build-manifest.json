@@ -1,0 +1,259 @@
+{
+  "inputs": {
+    "main.css": {
+      "bytes": 587,
+      "imports": []
+    },
+    "Main.svelte.css": {
+      "bytes": 295,
+      "imports": []
+    },
+    "_snowpack/pkg/common/index-414d7807.js": {
+      "bytes": 10234,
+      "imports": []
+    },
+    "_snowpack/pkg/svelte/internal.js": {
+      "bytes": 524,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-414d7807.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "layout/LeftPanel.svelte.css": {
+      "bytes": 3095,
+      "imports": []
+    },
+    "_snowpack/pkg/svelte/store.js": {
+      "bytes": 1785,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-414d7807.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_tmp/data.js": {
+      "bytes": 16254,
+      "imports": []
+    },
+    "share/store.js": {
+      "bytes": 1691,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/svelte/store.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_tmp/data.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "layout/LeftPanel.svelte.js": {
+      "bytes": 13927,
+      "imports": [
+        {
+          "path": "layout/LeftPanel.svelte.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "share/store.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "layout/Navigator.svelte.css": {
+      "bytes": 243,
+      "imports": []
+    },
+    "layout/Navigator.svelte.js": {
+      "bytes": 1166,
+      "imports": [
+        {
+          "path": "layout/Navigator.svelte.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "layout/RightPanel.svelte.css": {
+      "bytes": 744,
+      "imports": []
+    },
+    "layout/RightPanel.svelte.js": {
+      "bytes": 8692,
+      "imports": [
+        {
+          "path": "layout/RightPanel.svelte.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "share/store.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "Main.svelte.js": {
+      "bytes": 2165,
+      "imports": [
+        {
+          "path": "Main.svelte.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "layout/LeftPanel.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "layout/Navigator.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "layout/RightPanel.svelte.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "share/icon-close.js": {
+      "bytes": 326,
+      "imports": []
+    },
+    "share/icon-search.js": {
+      "bytes": 581,
+      "imports": []
+    },
+    "share/inline-images.js": {
+      "bytes": 808,
+      "imports": [
+        {
+          "path": "share/icon-close.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "share/icon-search.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "main.js": {
+      "bytes": 225,
+      "imports": [
+        {
+          "path": "main.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "Main.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "share/inline-images.js",
+          "kind": "import-statement"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "../~~bundle~~/main.js": {
+      "imports": [],
+      "exports": [
+        "default"
+      ],
+      "inputs": {
+        "main.css": {
+          "bytesInOutput": 0
+        },
+        "Main.svelte.css": {
+          "bytesInOutput": 0
+        },
+        "_snowpack/pkg/common/index-414d7807.js": {
+          "bytesInOutput": 3704
+        },
+        "_snowpack/pkg/svelte/internal.js": {
+          "bytesInOutput": 0
+        },
+        "layout/LeftPanel.svelte.css": {
+          "bytesInOutput": 0
+        },
+        "_snowpack/pkg/svelte/store.js": {
+          "bytesInOutput": 419
+        },
+        "_tmp/data.js": {
+          "bytesInOutput": 13424
+        },
+        "share/store.js": {
+          "bytesInOutput": 707
+        },
+        "layout/LeftPanel.svelte.js": {
+          "bytesInOutput": 4758
+        },
+        "layout/Navigator.svelte.css": {
+          "bytesInOutput": 0
+        },
+        "layout/Navigator.svelte.js": {
+          "bytesInOutput": 502
+        },
+        "layout/RightPanel.svelte.css": {
+          "bytesInOutput": 0
+        },
+        "layout/RightPanel.svelte.js": {
+          "bytesInOutput": 2708
+        },
+        "Main.svelte.js": {
+          "bytesInOutput": 633
+        },
+        "share/icon-close.js": {
+          "bytesInOutput": 337
+        },
+        "share/icon-search.js": {
+          "bytesInOutput": 592
+        },
+        "share/inline-images.js": {
+          "bytesInOutput": 399
+        },
+        "main.js": {
+          "bytesInOutput": 61
+        }
+      },
+      "bytes": 28360
+    },
+    "../~~bundle~~/main.css": {
+      "imports": [],
+      "inputs": {
+        "main.css": {
+          "bytesInOutput": 481
+        },
+        "Main.svelte.css": {
+          "bytesInOutput": 295
+        },
+        "layout/LeftPanel.svelte.css": {
+          "bytesInOutput": 3084
+        },
+        "layout/Navigator.svelte.css": {
+          "bytesInOutput": 242
+        },
+        "layout/RightPanel.svelte.css": {
+          "bytesInOutput": 740
+        }
+      },
+      "bytes": 4843
+    }
+  }
+}

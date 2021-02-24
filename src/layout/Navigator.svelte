@@ -7,9 +7,8 @@
 <style lang="scss">
   .text {
     font-family: Rockwell, serif;
-    font-size: 18px;
-    line-height: 48px;
-    padding: 0 30px;
+    font-size: 20px;
+    padding: 16px 40px 0;
   }
 
   .right {

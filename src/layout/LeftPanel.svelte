@@ -26,7 +26,7 @@
             {cat.display}
           </div>
         </div>
-        <div class="items" class:hidden={$selectedCategory?.key!==cat.key}>
+        <div class="items" class:hidden={$selectedCategory?.key!==cat.key && !$searchValue}>
           {#each cat.entries as entry}
             <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
               <a class="label" href={entryUrl(entry.key)}
@@ -102,7 +102,7 @@
   .panel {
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    flex: 1 0 160px;
     font-size: 16px;
     background-color: #F7F9FC;
   }
@@ -211,7 +211,8 @@
 
   .list {
     flex: 1 0 0;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: auto;
 
     .label {
       display: block;

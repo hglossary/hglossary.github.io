@@ -20,8 +20,6 @@ searchValue.subscribe((v) => {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/ /g, '-');
   searchValueNorm.set(norm);
-
-  console.log('norm', norm);
 });
 
 export type Term = {
