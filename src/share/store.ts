@@ -85,6 +85,8 @@ function buildData(data: Entry[]): {
   categories.forEach((cat) => {
     cat.entries.sort((a, b) => less(a.key, b.key));
   });
+
+  selectedCategory.set(categories[0]);
   return {entries, categories};
 }
 

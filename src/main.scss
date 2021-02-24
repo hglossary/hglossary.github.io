@@ -11,10 +11,12 @@
 }
 
 :root {
-  --bg-color: #EFEBE4;
+  --bg-color: #fff;
   --a-color: #000;
-  --a-hover-color: #1768B0;
-  --bg-hover-color: #E6D9C3;
+  --a-hover-color: #50A5F6;
+  --outline-focus-color: #7BAAD4;
+  --outline-color: #E5E5E5;
+  --bg-hover-color: #EAECEF;
 }
 
 * {
@@ -31,7 +33,6 @@ html, body {
 a {
   text-decoration: none;
   color: var(--a-color);
-
 
   &:hover {
     color: var(--a-hover-color);

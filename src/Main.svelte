@@ -16,23 +16,25 @@
 
 <style lang="scss">
   .root {
-    background: var(--bg-color);
+    background: #F7F9FC;
     height: 100%;
     display: flex;
     flex-direction: column;
   }
 
   .nav {
-    flex: 0 0 40px;
-    border-bottom: solid 1px #aaaaaa;
+    flex: 0 0 48px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
   .body {
-    flex: 1 0 auto;
+    flex: 1 1 0;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+    padding-top: 5px;
+    margin-top: -5px;
   }
 </style>

@@ -2,7 +2,8 @@
   <div class="search">
     <div class="icon icon-search"></div>
     <div class="text">Tìm kiếm</div>
-    <input class="input" type="text" class:active={$searchValue} bind:value={$searchValue}>
+    <input class="input" type="text" class:active={$searchValue} bind:value={$searchValue} on:keydown={captureEsc}>
+    <div class="close-search icon-close" class:hidden={!$searchValue} on:click={clearSearchInput}></div>
   </div>
   <div class="tabs">
     <div class="tab"
@@ -24,17 +25,17 @@
           <div class="label" on:click|preventDefault={selectCategory(cat)}>
             {cat.display}
           </div>
-          <div class="children">
-            {#each cat.entries as entry}
-              <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
-                <a class="label" href={entryUrl(entry.key)}
-                   class:active={$selectedEntry?.key === entry.key}
-                   on:click|preventDefault={selectEntry(entry)}>
-                  {entry.display}
-                </a>
-              </div>
-            {/each}
-          </div>
+        </div>
+        <div class="items" class:hidden={$selectedCategory?.key!==cat.key}>
+          {#each cat.entries as entry}
+            <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
+              <a class="label" href={entryUrl(entry.key)}
+                 class:active={$selectedEntry?.key === entry.key}
+                 on:click|preventDefault={selectEntry(entry)}>
+                {entry.display}
+              </a>
+            </div>
+          {/each}
         </div>
       {/each}
     </div>
@@ -85,9 +86,14 @@
     $searchValue = '';
   }
 
+  function captureEsc(e) {
+    if (e.key === 'Escape') {
+      $searchValue = '';
+    }
+  }
+
   function isHiddenEntry(entry: Entry, searchValueNorm: string) {
     if (!searchValueNorm) return false;
-    console.log('--', entry.key, searchValueNorm, entry.key.indexOf(searchValueNorm))
     return entry.key.indexOf(searchValueNorm) < 0;
   }
 </script>
@@ -97,8 +103,8 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
-    border-right: solid 1px #aaa;
     font-size: 16px;
+    background-color: #F7F9FC;
   }
 
   .hidden {
@@ -111,6 +117,7 @@
     display: flex;
     justify-content: center;
     position: relative;
+    margin: 5px 15px 5px;
 
     .icon {
       width: 32px;
@@ -121,32 +128,52 @@
       opacity: 60%;
     }
 
+    .close-search {
+      cursor: pointer;
+      position: absolute;
+      top: 6px;
+      right: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: #ccc;
+      background-position: center;
+      background-size: 12px;
+      opacity: 60%;
+      transition: 0.2s;
+
+      &:hover {
+        opacity: 90%;
+      }
+    }
+
     .text {
-      line-height: 32px;
-      color: #444;
+      line-height: 30px;
+      color: #888;
+      font-size: 14px;
     }
 
     .input {
       position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+      top: 2px;
+      bottom: 2px;
       width: 100%;
       display: block;
       padding: 0;
-      border: none;
+      border: solid 1px #ddd;
+      border-radius: 40px;
       text-align: center;
-      font-size: 16px;
-      background: #F8F6F4;
-      opacity: 0;
+      line-height: 30px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0);
       transition-duration: 0.2s;
-      transition-property: opacity;
+      transition-property: background-color, border-color;
 
       &.active, &:focus {
-        opacity: 1;
         outline: none;
         transition-duration: 0.1s;
+        background: #fff;
+        border-color: var(--outline-focus-color);
       }
     }
   }
@@ -155,12 +182,14 @@
     display: flex;
     line-height: 28px;
     height: 34px;
-    border-top: solid 1px #aaa;
-    border-bottom: solid 1px #aaa;
+    border-bottom: solid 1px var(--outline-color);
+    box-shadow: rgba(0, 0, 0, 0.04) 0 2px 3px 0;
 
     .vline {
       flex: 0 0 1px;
-      border-left: solid 1px #aaa;
+      height: 20px;
+      margin-top: 6px;
+      border-left: solid 1px var(--outline-color);
     }
   }
 
@@ -175,25 +204,18 @@
 
     &.active {
       font-weight: bold;
+      color: var(--a-hover-color);
+      border-bottom: solid 3px var(--a-hover-color);
     }
   }
 
   .list {
-    padding: 16px 0;
     flex: 1 0 0;
     overflow: scroll;
 
     .label {
       display: block;
       padding-left: 18px;
-
-      &.active {
-        font-weight: bold;
-      }
-    }
-
-    .children .label {
-      padding-left: 30px;
     }
 
     .item {
@@ -201,22 +223,41 @@
     }
 
     .category:not(:first-child) {
-      padding-top: 10px;
+      margin-top: 10px;
     }
 
-    .category > .label {
+    .category .label {
       font-weight: bold;
     }
 
-    .category > .label, .term-item {
-      cursor: pointer;
+    .term-item, .category {
+      .label {
+        cursor: pointer;
 
-      &:hover {
-        background-color: var(--bg-hover-color);
-
-        a {
+        &:hover {
+          background-color: var(--bg-hover-color);
           color: var(--a-hover-color);
         }
+
+        &.active {
+          background-color: var(--a-hover-color);
+          color: #fff;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .term-tree .term-item .label {
+      padding-left: 30px;
+    }
+
+    .term-tree {
+      .category {
+
+      }
+
+      .items {
+        flex: 0 1 auto;
       }
     }
   }
@@ -224,6 +265,7 @@
   .list-body {
     display: none;
     flex-direction: column;
+    padding: 15px 0 25px;
 
     &.active {
       display: flex;

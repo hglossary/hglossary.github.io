@@ -1,5 +1,3 @@
-import * as iconSearch from './icon-search.js';
-
 let style = '';
 
 export const getStyle = () => style;
@@ -28,5 +26,11 @@ export function setupStyle() {
   document.head.append(_$style);
 }
 
+import * as iconClose from './icon-close.js';
+import * as iconSearch from './icon-search.js';
+
 export const classIconSearch = 'icon-search';
+export const classIconClose = 'icon-close';
+
 buildStyle(classIconSearch, iconSearch);
+buildStyle(classIconClose, iconClose);

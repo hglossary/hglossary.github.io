@@ -8,7 +8,7 @@
   .text {
     font-family: Rockwell, serif;
     font-size: 18px;
-    line-height: 40px;
+    line-height: 48px;
     padding: 0 30px;
   }
 
@@ -16,7 +16,8 @@
     display: flex;
 
     .item {
-      line-height: 40px;
+      font-size: 16px;
+      line-height: 48px;
       padding-right: 24px;
     }
   }

@@ -20,7 +20,6 @@ module.exports = {
   },
   devOptions: {},
   buildOptions: {
-    baseUrl: "/hindex/",
     out: "docs",
   },
   optimize: {
