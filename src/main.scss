@@ -10,6 +10,18 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: "Be Vietnam";
+  src: url(/_/fonts/be/BeVietnam-Regular.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Be Vietnam";
+  src: url(/_/fonts/be/BeVietnam-Bold.ttf);
+  font-weight: bold;
+}
+
 :root {
   --bg-color: #fff;
   --a-color: #000;

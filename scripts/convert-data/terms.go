@@ -103,12 +103,18 @@ func getCellValue(cells Cells, key int) string {
 	return strings.TrimSpace(cell.Value)
 }
 
-func splitStr(s string) []string {
+func splitStr(s string) (res []string) {
 	ss := strings.Split(s, ";")
 	for i := range ss {
-		ss[i] = strings.TrimSpace(ss[i])
+		sss := strings.Split(ss[i], ",")
+		for _, item := range sss {
+			item = strings.TrimSpace(item)
+			if item != "" {
+				res = append(res, item)
+			}
+		}
 	}
-	return ss
+	return res
 }
 
 func convertKey(s string) string {
