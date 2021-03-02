@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
@@ -139,10 +140,13 @@ func parseTerms(ss []string) (rs []Term) {
 	return rs
 }
 
+var spaceRe = regexp.MustCompile(`(\r?\n)+`)
+
 func parseContent(s string) ParsedContent {
+	html := `<p>` + spaceRe.ReplaceAllString(s, `</p><p>`) + `</p>`
 	return ParsedContent{
 		Raw:  s,
-		HTML: `<p>` + s + `</p>`,
+		HTML: html,
 	}
 }
 
