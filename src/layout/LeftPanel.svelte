@@ -75,7 +75,8 @@
   }
 
   function selectCategory(cat: Category) {
-    $selectedCategory = cat;
+    if ($selectedCategory !== cat) $selectedCategory = cat;
+    else $selectedCategory = undefined;
   }
 
   function selectEntry(entry: Entry) {

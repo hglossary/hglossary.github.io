@@ -197,7 +197,7 @@ func parseContent(cell *ParsedCell, input string) ParsedContent {
 
 	footnoteNumber := 0
 	processNodes(nodes, func(s string) Nodes {
-		_nodes, footnotes := parseLinks(s, &footnoteNumber)
+		_nodes, footnotes := parseLinks(s, cell.Footnotes, &footnoteNumber)
 		cell.Footnotes = footnotes
 		return _nodes
 	})
@@ -357,7 +357,7 @@ func processRegex(
 	}
 }
 
-func parseLinks(input string, footnoteNumber *int) (nodes Nodes, footnotes []string) {
+func parseLinks(input string, footnotes []string, footnoteNumber *int) (nodes Nodes, _footnotes []string) {
 	processRegex(input, []*regexp.Regexp{reFootnote, reIntrLink, reExtrLink},
 		func(s string) {
 			nodes.append(&Node{Text: s})
