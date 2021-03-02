@@ -8,13 +8,13 @@
   <div class="tabs">
     <div class="tab"
          class:active={$selectedTab === 'tree'}
-         on:click={selectTab('tree')}>
+         on:click={()=>selectTab('tree')}>
       Danh mục
     </div>
     <div class="vline"></div>
     <div class="tab"
          class:active={$selectedTab === 'alpha'}
-         on:click={selectTab('alpha')}>
+         on:click={()=>selectTab('alpha')}>
       Alphabet
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div class="list-body term-tree" class:active={$selectedTab==='tree'}>
       {#each categories as cat}
         <div class="item category">
-          <div class="label" on:click|preventDefault={selectCategory(cat)}>
+          <div class="label" on:click|preventDefault={()=>selectCategory(cat)}>
             {cat.display}
           </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
               <a class="label" href={entryUrl(entry.key)}
                  class:active={$selectedEntry?.key === entry.key}
-                 on:click|preventDefault={selectEntry(entry)}>
+                 on:click|preventDefault={()=>selectEntry(entry)}>
                 {entry.display}
               </a>
             </div>
@@ -44,7 +44,7 @@
         <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
           <a class="label" href={entryUrl(entry.key)}
              class:active={$selectedEntry?.key === entry.key}
-             on:click|preventDefault={selectEntry(entry)}>
+             on:click|preventDefault={()=>selectEntry(entry)}>
             {entry.display}
           </a>
         </div>
@@ -71,15 +71,15 @@
   }
 
   function selectTab(name: string) {
-    return () => $selectedTab = name;
+    $selectedTab = name;
   }
 
   function selectCategory(cat: Category) {
-    return () => $selectedCategory = cat;
+    $selectedCategory = cat;
   }
 
   function selectEntry(entry: Entry) {
-    return () => $selectedEntry = entry;
+    $selectedEntry = entry;
   }
 
   function clearSearchInput() {

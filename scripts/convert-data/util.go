@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -12,12 +13,6 @@ import (
 // extract root directory of this project
 var _, _path, _, _ = runtime.Caller(0)
 var rootPath = filepath.Join(filepath.Dir(_path), "../..")
-
-func must(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
 
 type Rows []*xlsx.Row
 
@@ -201,4 +196,16 @@ func IsAcceptedSpecialChar(c rune) bool {
 func NormalizeUnaccent(s string) string {
 	s = norm.NFC.String(s)
 	return normalizeSearch(s, "-", false, true)
+}
+
+func jsonStr(v interface{}) string {
+	data, err := json.MarshalIndent(v, "", "  ")
+	must(err)
+	return string(data)
+}
+
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }

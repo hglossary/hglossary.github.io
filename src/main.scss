@@ -51,3 +51,27 @@ a {
   }
 }
 
+.content {
+  a {
+    color: var(--a-hover-color);
+    text-decoration: underline var(--a-hover-color);
+  }
+
+  a[data-flink] {
+    font-size: 12px;
+    display: inline-block;
+    margin-top: -3px;
+    vertical-align: top;
+  }
+
+  .quote {
+    padding: 0 20px 0 30px;
+    margin-right: 80px;
+    background: url(/_/quote.svg) left top no-repeat, url(/_/quote2.svg) right bottom no-repeat;
+    background-size: 25px;
+  }
+
+  .list-item {
+    margin: 0;
+  }
+}

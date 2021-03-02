@@ -1,6 +1,8 @@
+.idea
+.snowpack
+.vscode
 _tmp
 node_modules
-.snowpack
 
 *.log
 ~$*

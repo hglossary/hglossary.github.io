@@ -4,7 +4,7 @@
       <div class="title">
         <div class="primary">{$selectedEntry.display || ''}</div>
         {#if !primaryEntry}
-          {#each listTerms($selectedEntry) as term,i}
+          {#each listTerms($selectedEntry) as term, i}
             {#if i}
               <div class="circle">・</div>
             {/if}
@@ -15,24 +15,69 @@
       <div class="content">
         {#if primaryEntry}
           Xem
-          <a href={entryUrl(primaryEntry.key)} on:click|preventDefault={selectEntry(primaryEntry)}>
+          <a href={entryUrl(primaryEntry.key)} on:click|preventDefault={()=>selectEntry(primaryEntry)}>
             {primaryEntry.display}</a>.
         {:else}
           {@html $selectedEntry.content.html}
         {/if}
       </div>
     {/if}
+    {#if !primaryEntry}
+      {#if relatedTerms}
+        <div class="extra related-terms">
+          <div class="header">Thuật ngữ liên quan</div>
+          {#each relatedTerms as item,i}
+            <div class="item">
+              <a href={'/w/'+item.key}
+                 on:click|preventDefault={()=>selectEntryByKey(item.key)}>
+                {item.display}</a>
+            </div>
+          {/each}
+        </div>
+      {/if}
+      {#if $selectedEntry?.relatedArticles}
+        <div class="extra related-articles">
+          <div class="header">Bài viết liên quan</div>
+          {#each $selectedEntry.relatedArticles as item,i}
+            <div class="item">
+              <a href={item.url} target="_blank">{item.display}</a>
+            </div>
+          {/each}
+        </div>
+      {/if}
+      {#if $selectedEntry?.footnotes}
+        <div class="footnotes-border"></div>
+        <ol class="footnotes">
+          {#each $selectedEntry.footnotes as item,i}
+            <li class="note" id={'note-'+(i+1)}>{item}</li>
+          {/each}
+        </ol>
+      {/if}
+    {/if}
   </div>
 </div>
 
 <script lang="ts">
   import type {Entry, Term} from '../share/store.js';
-  import {entryUrl, selectedEntry} from '../share/store.js';
+  import {entryUrl, randomRelatedTerms, selectedEntry, selectEntryByKey} from '../share/store.js';
 
   $: primaryEntry = $selectedEntry?.primaryEntry;
+  $: relatedTerms = randomRelatedTerms($selectedEntry);
+  $: {
+    $selectedEntry;
+    setTimeout(() => {
+      const link$Items = document.querySelectorAll('.content a[data-ilink]');
+      for (let item: Element of link$Items) {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          selectEntryByKey(item.getAttribute('data-ilink'));
+        });
+      }
+    });
+  }
 
   function selectEntry(entry: Entry) {
-    return () => $selectedEntry = entry;
+    return $selectedEntry = entry;
   }
 
   function listTerms(entry: Entry): Term[] {
@@ -45,7 +90,7 @@
 <style lang="scss">
   .panel {
     flex: 6 6 0;
-    border-radius: 4px 0 0 0 ;
+    border-radius: 4px 0 0 0;
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
     background: #fff;
   }
@@ -80,12 +125,32 @@
     }
   }
 
-  a {
-    color: var(--a-hover-color);
-    text-decoration: underline var(--a-hover-color);
-  }
-
   .content {
     line-height: 28px;
+  }
+
+  .footnotes-border {
+    margin: 60px 0 20px 0;
+    height: 1px;
+    width: 100px;
+    background: #aaa;
+  }
+
+  .footnotes {
+    margin: 0;
+    padding: 0 0 0 30px;
+  }
+
+  .content + .extra {
+    margin-top: 80px;
+  }
+
+  .extra {
+    margin-top: 40px;
+
+    .header {
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
 </style>

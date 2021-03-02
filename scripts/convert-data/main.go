@@ -19,11 +19,13 @@ func main() {
 	rows := sheet.Rows
 	headerRowAt, headerDesc := loadHeaderRow(rows)
 	parsedCells := loadCellData(headerDesc, rows[headerRowAt+1:])
+	calcRelatedTerms(parsedCells)
 
 	var b bytes.Buffer
 	b.WriteString(`export default `)
 	jw := json.NewEncoder(&b)
 	jw.SetIndent("", "  ")
+	jw.SetEscapeHTML(false)
 	must(jw.Encode(parsedCells))
 
 	outFile := "src/_tmp/data.js"
