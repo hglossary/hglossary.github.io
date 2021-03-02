@@ -1,7 +1,7 @@
 {
   "inputs": {
     "main.css": {
-      "bytes": 1247,
+      "bytes": 1277,
       "imports": []
     },
     "Main.svelte.css": {
@@ -238,7 +238,7 @@
       "imports": [],
       "inputs": {
         "main.css": {
-          "bytesInOutput": 1047
+          "bytesInOutput": 1077
         },
         "Main.svelte.css": {
           "bytesInOutput": 295
@@ -253,7 +253,7 @@
           "bytesInOutput": 1003
         }
       },
-      "bytes": 5672
+      "bytes": 5702
     }
   }
 }
