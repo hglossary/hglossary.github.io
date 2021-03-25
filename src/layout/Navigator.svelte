@@ -1,4 +1,4 @@
-<div class="text">HOSPITALITY GLOSSARY</div>
+<div class="text">NGÀNH DU LỊCH</div>
 <div class="right">
   <div class="item"><a href="about">Giới thiệu</a></div>
   <div class="item"><a href="contact">Liên hệ</a></div>
