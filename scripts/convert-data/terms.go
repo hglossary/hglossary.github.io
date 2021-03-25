@@ -346,7 +346,12 @@ func processRegex(
 		var parts []string
 		for i := 0; i < len(mIdx); i += 2 {
 			a, b := mIdx[i], mIdx[i+1]
-			parts = append(parts, s[a:b])
+			// the part has no match
+			if a < 0 || b < 0 {
+				parts = append(parts, "")
+			} else {
+				parts = append(parts, s[a:b])
+			}
 		}
 		funcs[mi](s[minA:minB], parts...)
 		s = s[minB:]
