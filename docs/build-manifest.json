@@ -35,7 +35,7 @@
       ]
     },
     "_tmp/data.js": {
-      "bytes": 285714,
+      "bytes": 391634,
       "imports": []
     },
     "share/store.js": {
@@ -73,7 +73,7 @@
       "imports": []
     },
     "layout/Navigator.svelte.js": {
-      "bytes": 1166,
+      "bytes": 1162,
       "imports": [
         {
           "path": "layout/Navigator.svelte.css",
@@ -196,7 +196,7 @@
           "bytesInOutput": 419
         },
         "_tmp/data.js": {
-          "bytesInOutput": 210977
+          "bytesInOutput": 324401
         },
         "share/store.js": {
           "bytesInOutput": 1076
@@ -208,7 +208,7 @@
           "bytesInOutput": 0
         },
         "layout/Navigator.svelte.js": {
-          "bytesInOutput": 502
+          "bytesInOutput": 503
         },
         "layout/RightPanel.svelte.css": {
           "bytesInOutput": 0
@@ -232,7 +232,7 @@
           "bytesInOutput": 61
         }
       },
-      "bytes": 230065
+      "bytes": 343490
     },
     "../~~bundle~~/main.css": {
       "imports": [],
