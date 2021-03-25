@@ -11,6 +11,9 @@ go run ./scripts/convert-data
 
 # start
 yarn snowpack dev
+
+# build and publish
+yarn snowpack build
 ```
 
 ## Others
