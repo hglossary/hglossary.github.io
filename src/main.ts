@@ -1,4 +1,5 @@
 import './main.scss';
+// @ts-ignore
 import Main from './Main.svelte';
 import {setupStyle} from './share/inline-images.js';
 

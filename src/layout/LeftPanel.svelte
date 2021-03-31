@@ -7,19 +7,19 @@
   </div>
   <div class="tabs">
     <div class="tab"
-         class:active={$selectedTab === 'tree'}
-         on:click={()=>selectTab('tree')}>
+         class:active={$selectedTab === kTabTree}
+         on:click={()=>selectTab(kTabTree)}>
       Danh mục
     </div>
     <div class="vline"></div>
     <div class="tab"
-         class:active={$selectedTab === 'alpha'}
-         on:click={()=>selectTab('alpha')}>
+         class:active={$selectedTab === kTabList}
+         on:click={()=>selectTab(kTabList)}>
       Alphabet
     </div>
   </div>
   <div class="list">
-    <div class="list-body term-tree" class:active={$selectedTab==='tree'}>
+    <div class="list-body term-tree" class:active={$selectedTab===kTabTree}>
       {#each categories as cat}
         <div class="item category">
           <div class="label" on:click|preventDefault={()=>selectCategory(cat)}>
@@ -31,7 +31,7 @@
             <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
               <a class="label" href={entryUrl(entry.key)}
                  class:active={$selectedEntry?.key === entry.key}
-                 on:click|preventDefault={()=>selectEntry(entry)}>
+                 on:click|preventDefault={()=>selectEntry(entry.key)}>
                 {entry.display}
               </a>
             </div>
@@ -39,12 +39,12 @@
         </div>
       {/each}
     </div>
-    <div class="list-body term-alpha" class:active={$selectedTab==='alpha'}>
+    <div class="list-body term-alpha" class:active={$selectedTab===kTabList}>
       {#each entries as entry}
         <div class="item term-item" class:hidden={isHiddenEntry(entry, $searchValueNorm)}>
           <a class="label" href={entryUrl(entry.key)}
              class:active={$selectedEntry?.key === entry.key}
-             on:click|preventDefault={()=>selectEntry(entry)}>
+             on:click|preventDefault={()=>selectEntry(entry.key)}>
             {entry.display}
           </a>
         </div>
@@ -54,17 +54,19 @@
 </div>
 
 <script lang="ts">
-  import type {Category, Entry} from '../share/store.js';
+  import {categories, entries} from '../share/data.js';
   import {
-    categories,
-    entries,
     entryUrl,
+    kTabList,
+    kTabTree,
     searchValue,
     searchValueNorm,
     selectedCategory,
     selectedEntry,
     selectedTab,
+    selectEntry,
   } from '../share/store.js';
+  import type {Category, Entry} from '../share/types.js';
 
   function isSelected(selected: string, name: string) {
     return name === selected;
@@ -77,10 +79,6 @@
   function selectCategory(cat: Category) {
     if ($selectedCategory !== cat) $selectedCategory = cat;
     else $selectedCategory = undefined;
-  }
-
-  function selectEntry(entry: Entry) {
-    $selectedEntry = entry;
   }
 
   function clearSearchInput() {

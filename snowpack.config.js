@@ -9,6 +9,9 @@ module.exports = {
       static: true,
     },
   },
+  routes: [
+    {"match": "routes", "src": "\/[a-z].*", "dest": "/index.html"},
+  ],
   plugins: [
     '@snowpack/plugin-sass',
     ['@snowpack/plugin-svelte', {}],

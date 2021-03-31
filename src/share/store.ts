@@ -1,19 +1,44 @@
-import {Writable, writable} from 'svelte/store';
-import data from '../_tmp/data.js';
+import type {Writable} from 'svelte/store';
+import {writable} from 'svelte/store';
+import {mapEntries} from './data.js';
+import {parseRoute} from './pages.js';
+import type {Category, Entry, Route, Term} from './types.js';
 
-export const tabTree = 'tree';
-export const tabList = 'alpha';
+export const kTabTree = 'tree';
+export const kTabList = 'alpha';
+export const currentUrl: Writable<string> = writable(location.pathname);
+export const currentRoute: Writable<Route> = writable(parseRoute(location.pathname));
 
 export const selectedCategory: Writable<Category | undefined> = writable(undefined);
 export const selectedEntry: Writable<Entry | undefined> = writable(undefined);
-export const selectedTab = writable('tree');
+export const selectedTab = writable(kTabTree);
 
-export const {entries, mapEntries, categories} = buildData(data);
-export const entryUrl = (key: string) => '/w/' + key;
-export const categoryUrl = (key: string) => '/c/' + key;
+export const entryUrl = (key: string) => '/w/' + key;    // word
+export const categoryUrl = (key: string) => '/c/' + key; // category
+export const metaUrl = (key: string) => '/a/' + key;     // about
 
 export const searchValue = writable('');
 export const searchValueNorm = writable('');
+
+window.addEventListener('popstate', (e) => {
+  const route = e.state as Route;
+  if (!route) return;
+
+  currentUrl.set(route?.url || '/');
+  currentRoute.set(route);
+
+  console.log('<- url', route?.url, route);
+});
+
+currentRoute.subscribe((route) => {
+  const {page, key} = route;
+  if (page === 'entry') {
+    const entry = mapEntries[key];
+    selectedEntry.set(entry);
+  } else {
+    selectedEntry.set(null);
+  }
+});
 
 searchValue.subscribe((v) => {
   const norm = v.normalize("NFD")
@@ -22,45 +47,8 @@ searchValue.subscribe((v) => {
   searchValueNorm.set(norm);
 });
 
-export type Term = {
-  display: string
-  key: string
-  primary?: boolean
-}
-
-export type ContentEntry = {
-  // raw: string
-  html: string
-}
-
-export type Link = {
-  display: string
-  url: string
-}
-
-export type Entry = {
-  display?: string
-  key?: string
-  primaryEntry?: Entry
-
-  terms: Term[]
-  categories: Category[]
-  content: ContentEntry
-  footnotes?: string[]
-  relatedArticles?: Link[]
-  relatedTerms?: Term[]
-}
-
-export type Category = {
-  display: string
-  key: string
-  entries?: Entry[]
-}
-
-export function selectEntryByKey(key: string): Entry | undefined {
-  const entry = mapEntries[key];
-  selectedEntry.set(entry);
-  return entry;
+export function selectEntry(key: string) {
+  gotoUrl(entryUrl(key));
 }
 
 export function randomRelatedTerms(entry): Term[] | undefined {
@@ -84,51 +72,22 @@ export function randomRelatedTerms(entry): Term[] | undefined {
   return relatedTerms;
 }
 
-function buildData(data: Entry[]): {
-  entries: Entry[]
-  mapEntries: Record<string, Entry>
-  categories: Category[]
-} {
-  const entries: Entry[] = [];
+export function gotoUrl(url: string) {
+  const u = new URL(url, location.href);
 
-  const mapCats: Record<string, Category> = {};
-  for (let entry of data) {
-    const currentEntries: Entry[] = [];
-    for (let term of entry.terms) {
-      currentEntries.push({...entry, ...term});
-    }
-
-    // the first term is primary, all other terms link back to the first one
-    currentEntries.slice(1).forEach((entry) => {
-      entry.primaryEntry = currentEntries[0];
-    });
-    entries.push(...currentEntries);
-
-    for (let catItem of entry.categories || []) {
-      let cat = mapCats[catItem.key];
-      if (!cat) {
-        cat = mapCats[catItem.key] =
-          Object.assign({}, catItem, {entries: []});
-      }
-      cat.entries.push(...currentEntries);
-    }
+  // external url
+  if (u.origin !== location.origin) {
+    window.open(url, '_blank');
+    return true;
   }
 
-  const mapEntries: Record<string, Entry> = {};
-  for (let entry of entries) {
-    mapEntries[entry.key] = entry;
+  const pathname = u.pathname;
+  const route = parseRoute(pathname);
+  currentUrl.set(pathname);
+  currentRoute.set(route);
+
+  if (pathname !== location.pathname) {
+    history.pushState(route, 'Ngành du lịch', route.url);
   }
-
-  const categories: Category[] = [...Object.values(mapCats)];
-  entries.sort((a, b) => less(a.key, b.key));
-  categories.sort((a, b) => less(a.key, b.key));
-  categories.forEach((cat) => {
-    cat.entries.sort((a, b) => less(a.key, b.key));
-  });
-  // selectedCategory.set(categories[0]);
-  return {entries, mapEntries, categories};
-}
-
-function less(a: string, b: string): number {
-  return a < b ? -1 : a > b ? 1 : 0;
+  console.log('-> url', route.url, `(${url})`);
 }

@@ -75,3 +75,32 @@ a {
     margin: 0;
   }
 }
+
+.meta-page {
+  .title {
+    margin-bottom: 24px;
+
+    .primary {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .secondary {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .circle {
+      display: inline-block;
+      text-align: center;
+      width: 20px;
+      padding-left: 3px;
+    }
+  }
+
+  .content {
+    line-height: 28px;
+  }
+}

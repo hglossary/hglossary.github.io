@@ -1,89 +1,18 @@
-<div class="panel">
+<div class={panelClassNames($currentRoute)}>
   <div class="inner">
-    {#if $selectedEntry}
-      <div class="title">
-        <div class="primary">{$selectedEntry.display || ''}</div>
-        {#if !primaryEntry}
-          {#each listTerms($selectedEntry) as term, i}
-            {#if i}
-              <div class="circle">・</div>
-            {/if}
-            <div class="secondary">{term.display}</div>
-          {/each}
-        {/if}
-      </div>
-      <div class="content">
-        {#if primaryEntry}
-          Xem
-          <a href={entryUrl(primaryEntry.key)} on:click|preventDefault={()=>selectEntry(primaryEntry)}>
-            {primaryEntry.display}</a>.
-        {:else}
-          {@html $selectedEntry.content.html}
-        {/if}
-      </div>
-    {/if}
-    {#if !primaryEntry}
-      {#if relatedTerms}
-        <div class="extra related-terms">
-          <div class="header">Thuật ngữ liên quan</div>
-          {#each relatedTerms as item,i}
-            <div class="item">
-              <a href={'/w/'+item.key}
-                 on:click|preventDefault={()=>selectEntryByKey(item.key)}>
-                {item.display}</a>
-            </div>
-          {/each}
-        </div>
-      {/if}
-      {#if $selectedEntry?.relatedArticles}
-        <div class="extra related-articles">
-          <div class="header">Bài viết liên quan</div>
-          {#each $selectedEntry.relatedArticles as item,i}
-            <div class="item">
-              <a href={item.url} target="_blank">{item.display}</a>
-            </div>
-          {/each}
-        </div>
-      {/if}
-      {#if $selectedEntry?.footnotes}
-        <div class="footnotes-border"></div>
-        <ol class="footnotes">
-          {#each $selectedEntry.footnotes as item,i}
-            <li class="note" id={'note-'+(i+1)}>{item}</li>
-          {/each}
-        </ol>
-      {/if}
-    {/if}
+    <svelte:component this={routeComponent($currentRoute)}/>
   </div>
 </div>
 
 <script lang="ts">
-  import type {Entry, Term} from '../share/store.js';
-  import {entryUrl, randomRelatedTerms, selectedEntry, selectEntryByKey} from '../share/store.js';
+  import {routeComponent} from '../share/pages.js';
+  import {currentRoute} from '../share/store.js';
+  import type {Route} from '../share/types.js';
 
-  $: primaryEntry = $selectedEntry?.primaryEntry;
-  $: relatedTerms = randomRelatedTerms($selectedEntry);
-  $: {
-    $selectedEntry;
-    setTimeout(() => {
-      const link$Items = document.querySelectorAll('.content a[data-ilink]');
-      for (let item: Element of link$Items) {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          selectEntryByKey(item.getAttribute('data-ilink'));
-        });
-      }
-    });
-  }
-
-  function selectEntry(entry: Entry) {
-    return $selectedEntry = entry;
-  }
-
-  function listTerms(entry: Entry): Term[] {
-    if (!entry) return [];
-    const terms = entry.terms || [];
-    return terms.filter((term) => term.key !== entry.key);
+  function panelClassNames(r: Route): string {
+    const cs = ['panel'];
+    cs.push(r.page + '-page');
+    return cs.join(' ');
   }
 </script>
 
@@ -100,57 +29,5 @@
     height: 100%;
     padding: 30px 40px;
     overflow-y: scroll;
-  }
-
-  .title {
-    margin-bottom: 24px;
-
-    .primary {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .secondary {
-      display: inline-block;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .circle {
-      display: inline-block;
-      text-align: center;
-      width: 20px;
-      padding-left: 3px;
-    }
-  }
-
-  .content {
-    line-height: 28px;
-  }
-
-  .footnotes-border {
-    margin: 60px 0 20px 0;
-    height: 1px;
-    width: 100px;
-    background: #aaa;
-  }
-
-  .footnotes {
-    margin: 0;
-    padding: 0 0 0 30px;
-  }
-
-  .content + .extra {
-    margin-top: 80px;
-  }
-
-  .extra {
-    margin-top: 40px;
-
-    .header {
-      font-size: 18px;
-      font-weight: bold;
-    }
   }
 </style>
