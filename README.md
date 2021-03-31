@@ -10,10 +10,10 @@ cd C:/Users/Thuy/ws/hglossary.github.io
 go run ./scripts/convert-data
 
 # start
-yarn snowpack dev
+./scripts/watch.sh
 
 # build and publish
-yarn snowpack build
+./scripts/build.sh
 ```
 
 ## Others
@@ -29,4 +29,3 @@ cd ..
 #-> cd hglossary.github.io
 cd h<TAB>
 ```
-

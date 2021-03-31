@@ -20,7 +20,7 @@ module.exports = {
   },
   devOptions: {},
   buildOptions: {
-    out: "docs",
+    out: "build",
   },
   optimize: {
     bundle: true,

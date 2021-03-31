@@ -1,4 +1,5 @@
 {
+  "name": "nganhdulich.net",
   "license": "UNLICENSED",
   "devDependencies": {
     "@snowpack/plugin-sass": "^1.3.0",

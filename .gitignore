@@ -2,6 +2,7 @@
 .snowpack
 .vscode
 _tmp
+build
 node_modules
 
 *.log
