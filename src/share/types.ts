@@ -4,6 +4,11 @@ export type Route = {
   url: string
   title?: string
   page: Page
+
+  // when page=meta
+  // - home: about page on desktop and show menu on mobile
+  // - about
+  // - contact
   key: string
 }
 

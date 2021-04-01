@@ -24,10 +24,9 @@ export function validateMetaKey(key: string): string {
 }
 
 const reUrl = /^\/([w])\/([0-9A-Za-z-]+)$/;
-const routeHome: Route = {url: '/', page: 'meta', key: kDefPageMeta};
+const routeHome: Route = {url: '/', page: 'meta', key: 'home'};
 
 export function parseRoute(path: string, hash?: string): Route {
-  console.log('parse', path, hash);
   const parts = reUrl.exec(path);
   if (!parts) {
     const key = path.slice(1);

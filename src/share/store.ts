@@ -12,6 +12,7 @@ export const currentRoute: Writable<Route> = writable(parseRoute(location.pathna
 export const selectedCategory: Writable<Category | undefined> = writable(undefined);
 export const selectedEntry: Writable<Entry | undefined> = writable(undefined);
 export const selectedTab = writable(kTabTree);
+export const routeActive = writable(false);
 
 export const entryUrl = (key: string) => '/w/' + key;    // word
 export const categoryUrl = (key: string) => '/c/' + key; // category
@@ -19,6 +20,9 @@ export const metaUrl = (key: string) => key;             // about
 
 export const searchValue = writable('');
 export const searchValueNorm = writable('');
+
+// mobile only
+export const mobileSearchActive = writable(false);
 
 window.addEventListener('popstate', (e) => {
   const route = e.state as Route;
@@ -36,6 +40,13 @@ currentRoute.subscribe((route) => {
   } else {
     selectedEntry.set(null);
   }
+
+  const _routeActive = (
+    route.page === 'entry' ||
+    route.page === 'meta' && route.key !== 'home'
+  );
+  routeActive.set(_routeActive);
+  mobileSearchActive.set(false);
 });
 
 searchValue.subscribe((v) => {
@@ -43,7 +54,10 @@ searchValue.subscribe((v) => {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/ /g, '-');
   searchValueNorm.set(norm);
+  routeActive.set(false);
 });
+
+routeActive.subscribe((v) => console.log('routeActive', v));
 
 export function selectEntry(key: string) {
   gotoUrl(entryUrl(key));

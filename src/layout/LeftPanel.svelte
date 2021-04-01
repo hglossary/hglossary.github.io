@@ -1,10 +1,5 @@
-<div class="wrap">
-  <div class="search">
-    <div class="icon icon-search"></div>
-    <div class="text">Tìm kiếm</div>
-    <input class="input" type="text" class:active={$searchValue} bind:value={$searchValue} on:keydown={captureEsc}>
-    <div class="close-search icon-close" class:hidden={!$searchValue} on:click={clearSearchInput}></div>
-  </div>
+<div class="wrap-left">
+  <SearchBox screen="desktop"/>
   <div class="tabs">
     <div class="tab"
          class:active={$selectedTab === kTabTree}
@@ -59,6 +54,8 @@
     entryUrl,
     kTabList,
     kTabTree,
+    mobileSearchActive,
+    routeActive,
     searchValue,
     searchValueNorm,
     selectedCategory,
@@ -67,28 +64,16 @@
     selectEntry,
   } from '../share/store.js';
   import type {Category, Entry} from '../share/types.js';
-
-  function isSelected(selected: string, name: string) {
-    return name === selected;
-  }
+  import SearchBox from './SearchBox.svelte';
 
   function selectTab(name: string) {
     $selectedTab = name;
+    $routeActive = false;
   }
 
   function selectCategory(cat: Category) {
     if ($selectedCategory !== cat) $selectedCategory = cat;
     else $selectedCategory = undefined;
-  }
-
-  function clearSearchInput() {
-    $searchValue = '';
-  }
-
-  function captureEsc(e) {
-    if (e.key === 'Escape') {
-      $searchValue = '';
-    }
   }
 
   function isHiddenEntry(entry: Entry, searchValueNorm: string) {
@@ -98,11 +83,11 @@
 </script>
 
 <style lang="scss">
-  .wrap {
+  .wrap-left {
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    background-color: #F7F9FC;
+    background-color: var(--bg-cyan-color);
     flex: 1 0 0;
   }
 
@@ -110,78 +95,10 @@
     display: none;
   }
 
-  .search {
-    height: 32px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin: 5px 15px 5px;
-
-    .icon {
-      width: 32px;
-      height: 30px;
-      margin-top: 1px;
-      background-position: center;
-      background-size: 20px;
-      opacity: 60%;
-    }
-
-    .close-search {
-      cursor: pointer;
-      position: absolute;
-      top: 6px;
-      right: 5px;
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      background-color: #ccc;
-      background-position: center;
-      background-size: 12px;
-      opacity: 60%;
-      transition: 0.2s;
-
-      &:hover {
-        opacity: 90%;
-      }
-    }
-
-    .text {
-      line-height: 30px;
-      color: #888;
-      font-size: 14px;
-    }
-
-    .input {
-      position: absolute;
-      top: 2px;
-      bottom: 2px;
-      width: 100%;
-      display: block;
-      padding: 0;
-      border: solid 1px #ddd;
-      border-radius: 40px;
-      text-align: center;
-      line-height: 30px;
-      font-size: 14px;
-      background: rgba(0, 0, 0, 0);
-      transition-duration: 0.2s;
-      transition-property: background-color, border-color;
-
-      &.active, &:focus {
-        outline: none;
-        transition-duration: 0.1s;
-        background: #fff;
-        border-color: var(--outline-focus-color);
-      }
-    }
-  }
-
   .tabs {
     display: flex;
     line-height: 28px;
     height: 34px;
-    border-bottom: solid 1px var(--outline-color);
     box-shadow: rgba(0, 0, 0, 0.04) 0 2px 3px 0;
 
     .vline {
@@ -204,7 +121,6 @@
     &.active {
       font-weight: bold;
       color: var(--a-hover-color);
-      border-bottom: solid 3px var(--a-hover-color);
     }
   }
 
@@ -272,4 +188,39 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .header {
+      display: none;
+    }
+
+    .tabs {
+      border-bottom: solid 1px var(--outline-color);
+    }
+
+    .tab.active {
+      border-bottom: solid 3px var(--a-hover-color);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .wrap-left {
+      flex-direction: column-reverse;
+    }
+
+    .search {
+      display: none;
+    }
+
+    .tabs {
+      border-top: solid 1px var(--outline-color);
+    }
+
+    .tab {
+      border-top: solid 3px rgba(0, 0, 0, 0);
+    }
+
+    .tab.active {
+      border-top: solid 3px var(--a-hover-color);
+    }
+  }
 </style>
