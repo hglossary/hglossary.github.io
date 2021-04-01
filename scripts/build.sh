@@ -23,4 +23,11 @@ done
 # github cname
 cp CNAME docs/
 
+# generate github pages
+cp static/index.html docs/about.html
+cp static/index.html docs/contact.html
+mkdir -p docs/w
+
+go run ./scripts/generate-pages
+
 printf '\nOK ✔\n'
