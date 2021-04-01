@@ -33,6 +33,14 @@ window.addEventListener('popstate', (e) => {
   currentRoute.set(route);
 });
 
+searchValue.subscribe((v) => {
+  const norm = v.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ /g, '-');
+  searchValueNorm.set(norm);
+  routeActive.set(false);
+});
+
 currentRoute.subscribe((route) => {
   const {page, key} = route;
   if (page === 'entry') {
@@ -51,14 +59,6 @@ currentRoute.subscribe((route) => {
   setTimeout(() => {
     querySel('.panel-scroll')?.scrollTo(0, 0);
   });
-});
-
-searchValue.subscribe((v) => {
-  const norm = v.normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ /g, '-');
-  searchValueNorm.set(norm);
-  routeActive.set(false);
 });
 
 export function selectEntry(key: string) {

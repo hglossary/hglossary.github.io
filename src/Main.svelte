@@ -1,7 +1,7 @@
 <div class="root" class:route-active={$routeActive}>
   <div class="panel-left">
-    <div class="header" class:search-active={$mobileSearchActive}>
-      <a href="/" on:click|preventDefault={()=>gotoUrl('/')}>NGÀNH DU LỊCH</a>
+    <div class="header" class:search-active={$mobileSearchActive && !$routeActive}>
+      <a href="/" on:click|preventDefault={()=>home()}>NGÀNH DU LỊCH</a>
       <div class="icon icon-back" data-screen="mobile"
            on:click|preventDefault={()=>back()}></div>
       <div class="icon icon-search" data-screen="mobile"
@@ -42,6 +42,12 @@
     setTimeout(() => {
       querySel('.search[data-screen=mobile] .input').focus();
     }, 100);
+  }
+
+  function home() {
+    $searchValue = '';
+    $mobileSearchActive = false;
+    gotoUrl('/');
   }
 
   function back() {
