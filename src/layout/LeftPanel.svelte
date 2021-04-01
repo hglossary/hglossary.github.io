@@ -1,4 +1,4 @@
-<div class="panel panel-left">
+<div class="wrap">
   <div class="search">
     <div class="icon icon-search"></div>
     <div class="text">Tìm kiếm</div>
@@ -98,11 +98,12 @@
 </script>
 
 <style lang="scss">
-  .panel {
+  .wrap {
     display: flex;
     flex-direction: column;
     font-size: 16px;
     background-color: #F7F9FC;
+    flex: 1 0 0;
   }
 
   .hidden {
