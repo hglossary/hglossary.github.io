@@ -54,7 +54,6 @@
     entryUrl,
     kTabList,
     kTabTree,
-    mobileSearchActive,
     routeActive,
     searchValue,
     searchValueNorm,
@@ -194,6 +193,7 @@
     }
 
     .tabs {
+      height: 34px;
       border-bottom: solid 1px var(--outline-color);
     }
 
@@ -212,7 +212,12 @@
     }
 
     .tabs {
+      height: 40px;
       border-top: solid 1px var(--outline-color);
+
+      .vline {
+        margin-top: 10px;
+      }
     }
 
     .tab {

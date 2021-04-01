@@ -3,7 +3,7 @@
     <div class="header" class:search-active={$mobileSearchActive}>
       <a href="/" on:click|preventDefault={()=>gotoUrl('/')}>NGÀNH DU LỊCH</a>
       <div class="icon icon-back" data-screen="mobile"
-           on:click|preventDefault={()=>gotoUrl('/')}></div>
+           on:click|preventDefault={()=>back()}></div>
       <div class="icon icon-search" data-screen="mobile"
            on:click|preventDefault={()=>toggleSearchActive()}></div>
       <SearchBox screen="mobile"/>
@@ -32,15 +32,23 @@
   import LeftPanel from './layout/LeftPanel.svelte';
   import RightPanel from './layout/RightPanel.svelte';
   import SearchBox from './layout/SearchBox.svelte';
-  import {currentUrl, gotoUrl, mobileSearchActive, routeActive} from './share/store.js';
+  import {currentUrl, gotoUrl, mobileSearchActive, routeActive, searchValue} from './share/store.js';
   import {querySel} from './share/util.js';
 
   function toggleSearchActive() {
     $mobileSearchActive = !$mobileSearchActive;
     $routeActive = false;
+    $searchValue = '';
     setTimeout(() => {
       querySel('.search[data-screen=mobile] .input').focus();
     }, 100);
+  }
+
+  function back() {
+    $routeActive = false;
+    if ($searchValue !== '') {
+      $mobileSearchActive = true;
+    }
   }
 </script>
 

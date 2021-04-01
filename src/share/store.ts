@@ -3,6 +3,7 @@ import {writable} from 'svelte/store';
 import {mapEntries} from './data.js';
 import {parseRoute} from './pages.js';
 import type {Category, Entry, Route, Term} from './types.js';
+import {querySel} from './util.js';
 
 export const kTabTree = 'tree';
 export const kTabList = 'alpha';
@@ -47,6 +48,9 @@ currentRoute.subscribe((route) => {
   );
   routeActive.set(_routeActive);
   mobileSearchActive.set(false);
+  setTimeout(() => {
+    querySel('.panel-scroll')?.scrollTo(0, 0);
+  });
 });
 
 searchValue.subscribe((v) => {
@@ -56,8 +60,6 @@ searchValue.subscribe((v) => {
   searchValueNorm.set(norm);
   routeActive.set(false);
 });
-
-routeActive.subscribe((v) => console.log('routeActive', v));
 
 export function selectEntry(key: string) {
   gotoUrl(entryUrl(key));

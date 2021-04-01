@@ -147,4 +147,10 @@
       font-weight: bold;
     }
   }
+
+  @media (max-width: 768px) {
+    .footnotes {
+      padding-left: 15px;
+    }
+  }
 </style>
