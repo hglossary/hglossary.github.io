@@ -1,4 +1,4 @@
-<div class="panel">
+<div class="panel panel-left">
   <div class="search">
     <div class="icon icon-search"></div>
     <div class="text">Tìm kiếm</div>
@@ -101,7 +101,6 @@
   .panel {
     display: flex;
     flex-direction: column;
-    flex: 1 0 160px;
     font-size: 16px;
     background-color: #F7F9FC;
   }
@@ -121,7 +120,7 @@
     .icon {
       width: 32px;
       height: 30px;
-      margin-top: 2px;
+      margin-top: 1px;
       background-position: center;
       background-size: 20px;
       opacity: 60%;

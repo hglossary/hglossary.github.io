@@ -76,6 +76,14 @@ a {
   }
 }
 
+.panel-left {
+  flex: 1 0 160px;
+}
+
+.panel-right {
+  flex: 6 6 0;
+}
+
 .meta-page {
   .title {
     margin-bottom: 24px;

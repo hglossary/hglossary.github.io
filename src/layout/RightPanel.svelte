@@ -10,7 +10,7 @@
   import type {Route} from '../share/types.js';
 
   function panelClassNames(r: Route): string {
-    const cs = ['panel'];
+    const cs = 'panel panel-right'.split(' ');
     cs.push(r.page + '-page');
     return cs.join(' ');
   }
@@ -18,7 +18,6 @@
 
 <style lang="scss">
   .panel {
-    flex: 6 6 0;
     border-radius: 4px 0 0 0;
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
     background: #fff;

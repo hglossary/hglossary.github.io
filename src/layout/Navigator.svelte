@@ -1,7 +1,7 @@
-<div class="text">
+<div class="text panel-left">
   <a href="/" on:click|preventDefault={()=>gotoUrl('/')}>NGÀNH DU LỊCH</a>
 </div>
-<div class="right">
+<div class="right panel-right">
   <div class="item" class:active={$currentUrl==='/a/about'}>
     <a href="/a/about" on:click|preventDefault={()=>gotoUrl('/a/about')}>Giới thiệu</a>
   </div>
@@ -17,6 +17,7 @@
 <style lang="scss">
   .text {
     padding: 16px 40px 0;
+    text-align: center;
 
     a {
       font-family: Rockwell, serif;
@@ -26,6 +27,7 @@
 
   .right {
     display: flex;
+    justify-content: flex-end;
 
     .item {
       font-size: 16px;
