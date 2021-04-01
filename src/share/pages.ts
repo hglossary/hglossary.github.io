@@ -23,18 +23,19 @@ export function validateMetaKey(key: string): string {
   return mapPageMeta[key] ? key : kDefPageMeta;
 }
 
-const reUrl = /^\/([acw])\/([0-9A-Za-z-]+)$/;
+const reUrl = /^\/([w])\/([0-9A-Za-z-]+)$/;
 const routeHome: Route = {url: '/', page: 'meta', key: kDefPageMeta};
 
 export function parseRoute(path: string, hash?: string): Route {
   console.log('parse', path, hash);
   const parts = reUrl.exec(path);
-  if (!parts) return routeHome;
+  if (!parts) {
+    const key = path.slice(1);
+    if (mapPageMeta[key]) return {url: path, page: 'meta', key};
+    return routeHome;
+  }
 
   const page = parts[1], key = parts[2];
-  if (page === 'a' && mapPageMeta[key]) {
-    return {url: path, page: 'meta', key};
-  }
   if (page === 'w' && mapEntries[key]) {
     const title = `Ngành du lịch - ${mapEntries[key].display}`;
     return {url: path, page: 'entry', key, title};

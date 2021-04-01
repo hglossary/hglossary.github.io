@@ -8,11 +8,11 @@
   <div class="panel-right">
     <div class="panel-inner">
       <div class="header">
-        <div class="item" class:active={$currentUrl==='/a/about'}>
-          <a href="/a/about" on:click|preventDefault={()=>gotoUrl('/a/about')}>Giới thiệu</a>
+        <div class="item" class:active={$currentUrl==='/about'}>
+          <a href="/about" on:click|preventDefault={()=>gotoUrl('/about')}>Giới thiệu</a>
         </div>
-        <div class="item" class:active={$currentUrl==='/a/contact'}>
-          <a href="/a/contact" on:click|preventDefault={()=>gotoUrl('/a/contact')}>Liên hệ</a>
+        <div class="item" class:active={$currentUrl==='/contact'}>
+          <a href="/contact" on:click|preventDefault={()=>gotoUrl('/contact')}>Liên hệ</a>
         </div>
       </div>
       <RightPanel/>

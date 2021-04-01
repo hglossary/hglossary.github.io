@@ -15,7 +15,7 @@ export const selectedTab = writable(kTabTree);
 
 export const entryUrl = (key: string) => '/w/' + key;    // word
 export const categoryUrl = (key: string) => '/c/' + key; // category
-export const metaUrl = (key: string) => '/a/' + key;     // about
+export const metaUrl = (key: string) => key;             // about
 
 export const searchValue = writable('');
 export const searchValueNorm = writable('');
@@ -26,8 +26,6 @@ window.addEventListener('popstate', (e) => {
 
   currentUrl.set(route?.url || '/');
   currentRoute.set(route);
-
-  console.log('<- url', route?.url, route);
 });
 
 currentRoute.subscribe((route) => {
@@ -78,7 +76,7 @@ export function gotoUrl(url: string) {
   // external url
   if (u.origin !== location.origin) {
     window.open(url, '_blank');
-    return true;
+    return;
   }
 
   const pathname = u.pathname;
@@ -89,5 +87,4 @@ export function gotoUrl(url: string) {
   if (pathname !== location.pathname) {
     history.pushState(route, 'Ngành du lịch', route.url);
   }
-  console.log('-> url', route.url, `(${url})`);
 }
