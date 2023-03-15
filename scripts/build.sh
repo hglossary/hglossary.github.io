@@ -6,6 +6,7 @@ if ! grep nganhdulich <package.json >/dev/null 2>&1; then
     exit 1
 fi
 
+mkdir -p src/_tmp
 go run ./scripts/convert-data
 yarn snowpack build
 

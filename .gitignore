@@ -1,6 +1,7 @@
 .idea
 .snowpack
 .vscode
+.DS_Store
 _tmp
 build
 node_modules
